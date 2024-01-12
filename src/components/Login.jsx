@@ -3,19 +3,10 @@ import React from "react";
 import { useDispatch } from 'react-redux';
 import { login } from "./../redux/userSlice";
 import { auth, provider } from "./../config/firebase.js";
-import { createUserWithEmailAndPassword,signInWithPopup, signOut } from "firebase/auth";
-//import "./Login.css";
+import { signInWithPopup } from "firebase/auth";
 
 function Login() {
   const dispatch = useDispatch();
-
-  // const signInWithGoogle = async () => {
-  //   try {
-  //   await signInWithPopup(auth,googleProvider);
-  //   } catch (err){
-  //     console.error(err);
-  //   }
-  // };
 
   const signIn =  () => {    
      signInWithPopup(auth,provider).then(({ user }) => {

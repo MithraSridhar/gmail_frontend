@@ -1,5 +1,5 @@
-import IconButton from '@mui/material/IconButton';
-import Button from '@mui/material/Button';
+import IconButton from "@mui/material/IconButton";
+import Button from "@mui/material/Button";
 import React from "react";
 import AddIcon from "@mui/icons-material/Add";
 import InboxIcon from "@mui/icons-material/Inbox";
@@ -15,20 +15,13 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import SidebarOption from "./SideBarOption";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { openSendMessage } from "./../redux/emailSlice"
-import SentEmail from './SentEmail';
-import  { useEffect, useState } from "react";
-import axios from 'axios';
-import { API } from '../global';
-import { useNavigate } from "react-router-dom"
+import { openSendMessage } from "./../redux/emailSlice";
+import { useNavigate } from "react-router-dom";
 
-
-function Sidebar({ emails , sentEmails}) {
-  console.log(emails.length)
-  console.log(sentEmails.length)
+function Sidebar({ emails, sentEmails }) {
   const dispatch = useDispatch();
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
     <div className="sidebar">
       <Button
@@ -44,7 +37,7 @@ const navigate = useNavigate();
           title="Inbox"
           number={emails.length}
           selected={true}
-          onClick={()=> navigate("/")}    
+          onClick={() => navigate("/")}
         />
       </Link>
 
@@ -57,11 +50,9 @@ const navigate = useNavigate();
           Icon={NearMeIcon}
           title="Sent"
           number={sentEmails.length}
-          onClick={()=> navigate("/sentEmail")}        
+          onClick={() => navigate("/sentEmail")}
         />
       </Link>
-     {/* <SidebarOption Icon={NearMeIcon} title="Sent" number={81} onClick={<SentEmail/>}/> */}
-
 
       <SidebarOption Icon={NoteIcon} title="Drafts" number={5} />
       <SidebarOption Icon={ExpandMoreIcon} title="More" />

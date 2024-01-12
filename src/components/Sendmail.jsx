@@ -1,14 +1,12 @@
 import React from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { closeSendMessage } from "./../redux/emailSlice";
-//import { db } from "../../firebase";
-import firebase from "./../config/firebase";
 import axios from "axios";
 import { API } from "../global";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function Sendmail() {
   const {
@@ -21,33 +19,24 @@ function Sendmail() {
   const navigate = useNavigate();
   const onSubmit = async (formData) => {
     console.log(formData);
-    const userData = JSON.parse(localStorage.getItem('user_data'));
-    console.log("userData",userData)
-   console.log( userData[0])
-   console.log( userData[1])
-   console.log(userData[2])
-    const newEmail ={
+    const userData = JSON.parse(localStorage.getItem("user_data"));
+    console.log("userData", userData);
+    console.log(userData[0]);
+    console.log(userData[1]);
+    console.log(userData[2]);
+    const newEmail = {
       emailTo: formData.to,
       emailFrom: userData[1],
       senderName: userData[0],
       emailSubject: formData.subject,
-      emailContent: formData.message
-    }
-    console.log("newEmail",newEmail)
-    await  axios.post(`${API}/emails/newEmail`, newEmail).then((res)=>
-    console.log(res))
-  
-
-    //   axios.post(`${API}`,newProduct,{
-    //     headers:{
-    //         "Content-Type":"application/json",
-    //         Accept: "application/json"
-    //     }
-    // })
-    // .then((newProduct)=>console.log(newProduct))
-    // .then(()=>navigate("/"))
+      emailContent: formData.message,
+    };
+    console.log("newEmail", newEmail);
+    await axios
+      .post(`${API}/emails/newEmail`, newEmail)
+      .then((res) => console.log(res));
     dispatch(closeSendMessage());
-    navigate("/")
+    navigate("/");
   };
 
   return (

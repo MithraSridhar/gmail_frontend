@@ -1,6 +1,5 @@
 import IconButton from '@mui/material/IconButton';
 import Checkbox from '@mui/material/Checkbox';
-import React, { useEffect, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import RedoIcon from "@mui/icons-material/Redo";
@@ -13,7 +12,6 @@ import PeopleIcon from "@mui/icons-material/People";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import Section from "./Section";
 import EmailRow from "./EmailRow";
-import Moment from 'react-moment';
 import moment from 'moment';
 
 function EmailList({ emails }) {
@@ -62,16 +60,9 @@ function EmailList({ emails }) {
             title={email.emailFrom}
             subject={email.emailSubject}
             description={email.emailContent}
-            // time={email.emailDateTime.toLocaleString()}
             time={moment(email.emailDateTime).format('MMMM Do YYYY, h:mm:ss a')}
           />
         ))}
-        {/* <EmailRow
-          title="Twitch"
-          subject="Hey fellow streamer!!"
-          description="This is a DOPE"
-          time="10pm"
-        /> */}
       </div>
     </div>
   );
