@@ -13,9 +13,23 @@ import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import Section from "./Section";
 import EmailRow from "./EmailRow";
 import moment from 'moment';
+import React, { useEffect, useState } from "react";
+import { API } from "../global";
+import axios from 'axios';
 
-function EmailList({ emails }) {
-  console.log("inside email list",emails)
+function EmailList() {
+  const [emails, setEmails] = useState([]); 
+  const  userData = JSON.parse(localStorage.getItem('user_data'));
+
+  const userEmail = {
+    emailTo: userData[1]
+};
+ 
+useEffect(() => {
+     axios.post(`${API}/emails/getUserEmail`,userEmail).then((emails) =>
+     setEmails(emails.data)
+     )
+  }, []);
   return (
     <div className="emailList">
       <div className="emailList-settings">

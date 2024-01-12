@@ -17,8 +17,40 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openSendMessage } from "./../redux/emailSlice";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API } from "../global";
 
-function Sidebar({ emails, sentEmails }) {
+function Sidebar() {
+
+
+  const [emails, setEmails] = useState([]);
+
+  const  userData = JSON.parse(localStorage.getItem('user_data'));
+
+  const userEmail = {
+    emailTo: userData[1]
+};
+ 
+useEffect(() => {
+     axios.post(`${API}/emails/getUserEmail`,userEmail).then((emails) =>
+     setEmails(emails.data)
+     )
+  }, []);
+
+
+const [sentEmails, setSentEmails] = useState([]);
+
+console.log("sentEmails", sentEmails);
+const userSentEmail = {
+  emailFrom: userData[1]
+};
+useEffect( () => {
+   axios.post(`${API}/emails/getUserSentEmail`,userSentEmail).then((emails) =>
+   setSentEmails(emails.data)
+   )
+}, []);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();

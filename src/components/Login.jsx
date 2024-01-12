@@ -4,9 +4,11 @@ import { useDispatch } from 'react-redux';
 import { login } from "./../redux/userSlice";
 import { auth, provider } from "./../config/firebase.js";
 import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const signIn =  () => {    
      signInWithPopup(auth,provider).then(({ user }) => {
@@ -26,6 +28,7 @@ function Login() {
       );
       localStorage.setItem("user_data",JSON.stringify(user_data))
     });
+    navigate("/");
   };
   return (
     <div className="login">
