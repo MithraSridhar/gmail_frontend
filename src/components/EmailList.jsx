@@ -13,6 +13,8 @@ import PeopleIcon from "@mui/icons-material/People";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import Section from "./Section";
 import EmailRow from "./EmailRow";
+import Moment from 'react-moment';
+import moment from 'moment';
 
 function EmailList({ emails }) {
   console.log("inside email list",emails)
@@ -57,10 +59,11 @@ function EmailList({ emails }) {
           <EmailRow
             id={email._id}
             key={email._id}
-            title={email.emailTo}
+            title={email.emailFrom}
             subject={email.emailSubject}
             description={email.emailContent}
-            time={email.emailDateTime}
+            // time={email.emailDateTime.toLocaleString()}
+            time={moment(email.emailDateTime).format('MMMM Do YYYY, h:mm:ss a')}
           />
         ))}
         {/* <EmailRow

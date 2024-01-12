@@ -16,10 +16,19 @@ import SidebarOption from "./SideBarOption";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { openSendMessage } from "./../redux/emailSlice"
+import SentEmail from './SentEmail';
+import  { useEffect, useState } from "react";
+import axios from 'axios';
+import { API } from '../global';
+import { useNavigate } from "react-router-dom"
 
-function Sidebar({ emails }) {
+
+function Sidebar({ emails , sentEmails}) {
+  console.log(emails.length)
+  console.log(sentEmails.length)
   const dispatch = useDispatch();
 
+const navigate = useNavigate();
   return (
     <div className="sidebar">
       <Button
@@ -35,13 +44,25 @@ function Sidebar({ emails }) {
           title="Inbox"
           number={emails.length}
           selected={true}
+          onClick={()=> navigate("/")}    
         />
       </Link>
 
       <SidebarOption Icon={StarIcon} title="Starred" number={12} />
       <SidebarOption Icon={AccessTimeIcon} title="Snoozed" number={9} />
       <SidebarOption Icon={LabelImportantIcon} title="Important" number={12} />
-      <SidebarOption Icon={NearMeIcon} title="Sent" number={81} />
+
+      <Link to="/sentEmail" className="sidebar-link">
+        <SidebarOption
+          Icon={NearMeIcon}
+          title="Sent"
+          number={sentEmails.length}
+          onClick={()=> navigate("/sentEmail")}        
+        />
+      </Link>
+     {/* <SidebarOption Icon={NearMeIcon} title="Sent" number={81} onClick={<SentEmail/>}/> */}
+
+
       <SidebarOption Icon={NoteIcon} title="Drafts" number={5} />
       <SidebarOption Icon={ExpandMoreIcon} title="More" />
 
