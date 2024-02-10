@@ -16,19 +16,28 @@ import moment from 'moment';
 import React, { useEffect, useState } from "react";
 import { API } from "../global";
 import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function EmailList() {
   const [emails, setEmails] = useState([]); 
   const  userData = JSON.parse(localStorage.getItem('user_data'));
-
+  const [isBusy,setIsBusy] = useState(false); ;
   const userEmail = {
     emailTo: userData[1]
 };
- 
+
+const getUserEmailInbox = ()=>{
+  setIsBusy(true);
+  axios.post(`${API}/emails/getUserEmail`,userEmail).then((emails) =>{
+    setEmails(emails.data)
+    setIsBusy(false)
+  } 
+  )
+  
+}
+
 useEffect(() => {
-     axios.post(`${API}/emails/getUserEmail`,userEmail).then((emails) =>
-     setEmails(emails.data)
-     )
+  getUserEmailInbox();    
   }, []);
   return (
     <div className="emailList">
@@ -66,18 +75,21 @@ useEffect(() => {
         <Section Icon={LocalOfferIcon} title="Promotions" color="green" />
       </div>
 
-      <div className="emailList-list">
-        {emails.map((email) => (
-          <EmailRow
-            id={email._id}
-            key={email._id}
-            title={email.emailFrom}
-            subject={email.emailSubject}
-            description={email.emailContent}
-            time={moment(email.emailDateTime).format('MMMM Do YYYY, h:mm:ss a')}
-          />
-        ))}
-      </div>
+{isBusy? ( <div class="loader"> <CircularProgress/> </div>) : (<div className="emailList-list">
+
+{emails.map((email) => (
+  <EmailRow
+    id={email._id}
+    key={email._id}
+    title={email.emailFrom}
+    subject={email.emailSubject}
+    description={email.emailContent}
+    time={moment(email.emailDateTime).format('MMMM Do YYYY, h:mm:ss a')}
+  />
+))}
+</div>)}
+
+      
     </div>
   );
 }

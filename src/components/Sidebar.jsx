@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API } from "../global";
 
+
 function Sidebar() {
 
 
@@ -32,16 +33,18 @@ function Sidebar() {
     emailTo: userData[1]
 };
  
+function getUserEmailInbox() {
+  axios.post(`${API}/emails/getUserEmail`, userEmail).then((emails) => setEmails(emails.data)
+  );
+}
 useEffect(() => {
-     axios.post(`${API}/emails/getUserEmail`,userEmail).then((emails) =>
-     setEmails(emails.data)
-     )
+  getUserEmailInbox();
   }, []);
 
 
 const [sentEmails, setSentEmails] = useState([]);
 
-console.log("sentEmails", sentEmails);
+//console.log("sentEmails", sentEmails);
 const userSentEmail = {
   emailFrom: userData[1]
 };

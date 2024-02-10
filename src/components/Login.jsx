@@ -18,7 +18,7 @@ function Login() {
            user.email,
           user.photoURL,
       ]
-     console.log("user",user_data)
+     //console.log("user",user_data)
       dispatch(
         login({
           displayName: user.displayName,

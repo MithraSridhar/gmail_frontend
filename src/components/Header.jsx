@@ -36,7 +36,7 @@ function Header() {
   const [placement, setPlacement] = useState();
 
   const handleClick = (newPlacement) => (event) => {
-    console.log(event.currentTarget);
+    //console.log(event.currentTarget);
     setAnchorEl(event.currentTarget);
     setOpen((prev) => placement !== newPlacement || !prev);
     setPlacement(newPlacement);

@@ -18,12 +18,12 @@ function Sendmail() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onSubmit = async (formData) => {
-    console.log(formData);
+    //console.log(formData);
     const userData = JSON.parse(localStorage.getItem("user_data"));
-    console.log("userData", userData);
-    console.log(userData[0]);
-    console.log(userData[1]);
-    console.log(userData[2]);
+    //console.log("userData", userData);
+    //console.log(userData[0]);
+    //console.log(userData[1]);
+    //console.log(userData[2]);
     const newEmail = {
       emailTo: formData.to,
       emailFrom: userData[1],
@@ -31,10 +31,9 @@ function Sendmail() {
       emailSubject: formData.subject,
       emailContent: formData.message,
     };
-    console.log("newEmail", newEmail);
+    //console.log("newEmail", newEmail);
     await axios
-      .post(`${API}/emails/newEmail`, newEmail)
-      .then((res) => console.log(res));
+      .post(`${API}/emails/newEmail`, newEmail);
     dispatch(closeSendMessage());
     navigate("/");
   };
